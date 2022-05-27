@@ -3,6 +3,8 @@ from flask import (
     request
 )
 from datetime import datetime
+from app.database import user
+VERSION = "1.0.0"
 
 app =Flask(__name__)
 
@@ -18,18 +20,18 @@ def ping():
 @app.get("/version")
 def version():
     out = {
-        "status" : "ok",
-        "version" : VERSION,
+        "status": "ok",
+        "version": VERSION,
         "server_time" : datetime.now().strftime("%F %H:%M:%S")
     }
     return out
 
 @app.get("/users")
 def get_all_users():
-    user_list = user.scan():
+    user_list = user.scan()
     out = {
-        "status" : "ok"
-        "users": user_list
+        "status" : "ok",
+        "user": user_list
     }
     return out
 
@@ -38,8 +40,13 @@ def get_user_by_id(pk):
     record = user.select_by_id(pk)
     out = {
         "status" : "ok",
-        "user": record
     }
+    if not record:
+        out ["status"] = "error"
+        out["message"] = "not found"
+        return out, 404
+    else:
+        out["user"] = record
     return out
 
 @app.post("/users")
@@ -54,7 +61,7 @@ def update_user(pk):
     user.update(user_data, pk)
     return "", 204
 
-@app.delete("users/<int:pk>")
+@app.delete("/users/<int:pk>")
 def delete_user(pk):
-    user.delete(pk)
+    user.deactivate_user(pk)
     return "", 204
