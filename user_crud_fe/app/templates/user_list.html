@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block title %}Users {% endblock title %} {% block
+content %}
+<h1>User Listing</h1>
+<ul>
+  {% for user in user_list %}
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">User #{{ user["id"] }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">
+        {{ user["last_name"] }}, {{ user["first_name"] }}
+      </h6>
+      <p class="card-text">{{ user ["hobbies"] }}</p>
+      <a href="#" class="card-link">Edit</a>
+      <a href="#" class="card-link">Delete</a>
+    </div>
+  </div>
+  <br />
+  {% endfor %}
+</ul>
+{% endblock content %}
