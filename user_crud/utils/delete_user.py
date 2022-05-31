@@ -11,7 +11,7 @@ def get_user(pk):
     if response.status_code == 200:
         pprint(response.json())
     else:
-        print("Something went wrong with retrieving the data")
+        pprint("Something went wrong with retrieving the data")
 
 
 
