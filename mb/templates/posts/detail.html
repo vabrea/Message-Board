@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock title %}
+
+{% block content %}
+<br/>
+<br/>
+<div class="card bg-warning" style="width: 25rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{ post.title }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Created on: {{ post.created_on }}</h6>
+      <p class="card-text">{{ post.body }}</p>
+    </div>
+  </div>
+{% endblock content %}
+
